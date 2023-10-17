@@ -1,0 +1,49 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="side" opened>
+    <div class="sidebar-header">
+      <img src="assets/ECOUBICA2-LOGO.png" alt="" class="logo">
+    </div>
+    <div class="div">
+      <mat-list-item>
+        <mat-icon>account_circle</mat-icon>
+        <span style="font-weight: bold;">{{currentUser?.username}}</span>
+      </mat-list-item>
+    </div>
+
+    <mat-nav-list>
+
+      <button *ngFor="let i of menuItems" [routerLink]="i.path" class="highlighted-option">
+        <mat-list-item>
+          <mat-icon>{{i.icon}}</mat-icon>
+          <span style="font-weight: bold;">{{i.title}}</span>
+        </mat-list-item>
+      </button>
+
+      <div class="div">
+        <div class="spacer"></div>
+        <button [routerLink]="'/login'" class="highlighted-option">
+          <mat-list-item>
+            <mat-icon>accessibility</mat-icon>
+            <span>Iniciar Sesión</span>
+          </mat-list-item>
+        </button>
+        <button *ngIf="!userLoggedIn" [routerLink]="'/register'" class="highlighted-option">
+          <mat-list-item>
+            <mat-icon>assignment</mat-icon>
+            <span>Registrarse</span>
+          </mat-list-item>
+        </button>
+      </div>
+      <div class="div">
+        <div class="spacer"></div>
+
+        <button  class="highlighted-option">
+          <mat-list-item>
+            <mat-icon>power_settings_new</mat-icon>
+            <span>Cerrar Sesión</span>
+          </mat-list-item>
+        </button>
+      </div>
+    </mat-nav-list>
+  </mat-sidenav>
+</mat-sidenav-container>

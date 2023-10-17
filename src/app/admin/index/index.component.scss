@@ -1,0 +1,30 @@
+.index {
+  display: flex;
+  flex-direction: column; /* Coloca los elementos uno encima del otro */
+  align-items: center; /* Centra horizontalmente los elementos en el contenedor */
+  justify-content: flex-start; /* Coloca el texto en la parte superior */
+  height: 100vh;
+  background-color: #fff;
+  color: #000000;
+}
+
+.row{
+  padding: 20px;
+}
+
+.spacer {
+  height: 60px; /* Ajusta la altura al tamaño de un botón */
+}
+
+.welcome {
+  text-align: center;
+}
+
+h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 1.5rem;
+}

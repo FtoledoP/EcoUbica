@@ -1,1 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
+@import url('https://unpkg.com/leaflet@1.9.4/dist/leaflet.css');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap');
+
+:root {
+  --color-primary: #61ae63; /* Color principal (verde) */
+  --color-secondary: #3ba73f; /* Color secundario (azul) */
+  --color-tertiary: #95cd97; /* Color terciario (rojo) */
+}
+
+
