@@ -3,7 +3,13 @@
     <div class="sidebar-header">
       <img src="assets/ECOUBICA2-LOGO.png" alt="" class="logo">
     </div>
-    <div class="div">
+    <div class="div" *ngIf="!userLoggedIn">
+      <mat-list-item>
+        <mat-icon>account_circle</mat-icon>
+        <span style="font-weight: bold;">No has iniciado sesion</span>
+      </mat-list-item>
+    </div>
+    <div class="div" *ngIf="userLoggedIn">
       <mat-list-item>
         <mat-icon>account_circle</mat-icon>
         <span style="font-weight: bold;">{{currentUser?.username}}</span>
@@ -19,7 +25,7 @@
         </mat-list-item>
       </button>
 
-      <div class="div">
+      <div class="div" *ngIf="!userLoggedIn">
         <div class="spacer"></div>
         <button [routerLink]="'/login'" class="highlighted-option">
           <mat-list-item>
@@ -34,10 +40,10 @@
           </mat-list-item>
         </button>
       </div>
-      <div class="div">
+      <div class="div" *ngIf="userLoggedIn">
         <div class="spacer"></div>
 
-        <button  class="highlighted-option">
+        <button (click)="logout()" class="highlighted-option">
           <mat-list-item>
             <mat-icon>power_settings_new</mat-icon>
             <span>Cerrar Sesión</span>

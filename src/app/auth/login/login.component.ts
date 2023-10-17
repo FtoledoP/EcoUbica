@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl } from '@angular/forms';
+import { UserService } from 'src/app/shared/services/user.service';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 @Component({
@@ -13,7 +16,9 @@ export class LoginComponent {
   loginForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
-              private router: Router) {
+              private userService: UserService,
+              private router: Router,
+              private spinner: NgxSpinnerService) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
@@ -21,7 +26,20 @@ export class LoginComponent {
   }
 
   onSubmit() {
-
+    // Aquí puedes manejar la lógica de envío del formulario
+    this.spinner.show();
+    if (this.loginForm.valid) {
+      this.userService.login(this.loginForm.value.email, this.loginForm.value.password)
+      setTimeout(() => {
+      this.spinner.hide();
+      }, 3000);
+    } else {
+      this.spinner.hide();
+      console.log('Formulario inválido');
+    }
+    setTimeout(() => {
+      this.spinner.hide();
+      }, 3000);
   }
 
   ngOnInit() {}

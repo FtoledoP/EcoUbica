@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { MatSidenav } from '@angular/material/sidenav';
+import { ViewChild } from '@angular/core';
 import { Menu, NavService } from '../../services/nav.service';
-import { Firestore} from '@angular/fire/firestore';
+import { UserService } from '../../services/user.service';
+import { getAuth } from "firebase/auth";
+import { Firestore, collection, addDoc, query, where, getDocs, setDoc, doc, getDoc } from '@angular/fire/firestore';
 
 
 
@@ -18,12 +22,32 @@ export class SidebarComponent implements OnInit{
   currentUser:any;
 
   constructor(public navServices: NavService,
+              private userService: UserService,
               private firestore: Firestore) {
     this.menuItems = this.navServices.MENUITEMS
+
+    this.userService.isLoggedIn.subscribe((loggedIn) => {
+      this.userLoggedIn = loggedIn;
+      this.userEmail = this.userService.userEmail;
+      const usersRef = collection(this.firestore, 'users');
+      const userQuery = query(usersRef, where('email', '==', this.userEmail));
+      const querySnapshot = getDocs(userQuery).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          console.log(doc.data());
+          this.currentUser = doc.data();
+        })
+      });
+      console.log('Current User: ' + this.currentUser);
+    })
 
   }
 
   ngOnInit(): void {
+  }
+
+  logout(){
+    this.userService.logout();
+    this.userEmail = null;
   }
 
 }

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AbstractControl } from '@angular/forms';
+import { UserService } from 'src/app/shared/services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -11,7 +13,9 @@ export class RegisterComponent {
 
   registerForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder,
+              private userService: UserService,
+              private router: Router) {
     this.registerForm = this.formBuilder.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -36,7 +40,22 @@ export class RegisterComponent {
 
 
   onSubmit() {
-
+    // Aquí puedes manejar la lógica de envío del formulario
+    if (this.registerForm.valid) {
+      console.log('Formulario válido:', this.registerForm.value);
+      this.userService.register(this.registerForm.value.email, this.registerForm.value.password).then((res) => {
+        console.log(res);
+        const data = this.registerForm.value;
+        this.userService.createUser(data).then((res) => {
+          console.log(res);
+          console.log('Usuario creado exitosamente');
+          this.router.navigate(['/login']);
+        }).catch((err) => {console.log(err)});
+        this.registerForm.reset()
+      }).catch((err) => {console.log(err)});
+    } else {
+      console.log('Formulario inválido');
+    }
   }
 
   ngOnInit() {
