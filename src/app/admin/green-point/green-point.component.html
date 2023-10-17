@@ -1,0 +1,19 @@
+<div class="div" id="spacer"></div>
+<div class="row">
+  <div id="map-container">
+    <div id="map"></div>
+  </div>
+</div>
+<div class="row">
+  <div id="button-container">
+    <button id="center-map-button" (click)="centerMapOnUser()">Centrar mapa</button>
+    <button id="center-map-button" (click)="centerMapOnUser()">Agregar punto verde</button>
+  </div>
+</div>
+<div class="row">
+  <div id="button-container">
+    <button id="add-marker-button" (click)="addMarker()" [disabled]="!markerEnabled">Agregar Marcador</button>
+    <button id="remove-marker-button" (click)="removeMarker()" [disabled]="!markerEnabled">Eliminar Marcador</button>
+  </div>
+</div>
+

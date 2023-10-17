@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { IndexComponent } from './admin/index/index.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
+import { GreenPointComponent } from './admin/green-point/green-point.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,11 @@ const routes: Routes = [
   {
     path: 'register',
     component: RegisterComponent,
+    canActivate: [],
+  },
+  {
+    path: 'greenpoint',
+    component: GreenPointComponent,
     canActivate: [],
   }
 ];

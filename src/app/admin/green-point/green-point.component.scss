@@ -1,0 +1,44 @@
+#map {
+  border: 2px solid var(--color-primary);
+  border-radius: 10px;
+  width: 1000px;
+  height: 500px;
+}
+
+#map-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#spacer {
+  height: 80px;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centrar horizontalmente */
+}
+
+#button-container {
+  display: flex;
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+  margin-top: 10px; /* Espacio superior para separar los botones del mapa */
+}
+
+button {
+  background-color: var(--color-primary);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin: 0 5px; /* Espacio entre los botones */
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}

@@ -24,6 +24,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { HttpClientModule } from '@angular/common/http';
+import { GreenPointComponent } from './admin/green-point/green-point.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { HttpClientModule } from '@angular/common/http';
     SidebarComponent,
     HeaderComponent,
     FooterComponent,
+    GreenPointComponent,
   ],
   imports: [
     BrowserModule,

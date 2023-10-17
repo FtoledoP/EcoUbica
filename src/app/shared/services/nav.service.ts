@@ -30,6 +30,13 @@ export class NavService{
       type: 'link',
       path: '/index',
       roles: ['user', 'admin'],
+    },
+    {
+      title: 'Puntos verdes',
+      icon: 'add_location',
+      type: 'link',
+      path: '/greenpoint',
+      roles: ['user', 'admin'],
     }
   ]
 
