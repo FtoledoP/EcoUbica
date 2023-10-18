@@ -5,6 +5,7 @@ import { IndexComponent } from './admin/index/index.component';
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { GreenPointComponent } from './admin/green-point/green-point.component';
+import { ReportComponent } from './admin/report/report.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,12 @@ const routes: Routes = [
   {
     path: 'greenpoint',
     component: GreenPointComponent,
+    canActivate: [],
+  }
+  ,
+  {
+    path: 'report',
+    component: ReportComponent,
     canActivate: [],
   }
 ];

@@ -38,6 +38,14 @@ export class NavService{
       path: '/greenpoint',
       roles: ['user', 'admin'],
     }
+    ,
+    {
+      title: 'Reportes',
+      icon: 'report',
+      type: 'link',
+      path: '/report',
+      roles: ['user', 'admin'],
+    }
   ]
 
 }

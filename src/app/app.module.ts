@@ -25,6 +25,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { HttpClientModule } from '@angular/common/http';
 import { GreenPointComponent } from './admin/green-point/green-point.component';
+import { ReportComponent } from './admin/report/report.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { GreenPointComponent } from './admin/green-point/green-point.component';
     HeaderComponent,
     FooterComponent,
     GreenPointComponent,
+    ReportComponent,
   ],
   imports: [
     BrowserModule,

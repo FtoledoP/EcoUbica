@@ -65,7 +65,8 @@ export class GreenPointComponent implements OnInit {
     L.marker(this.userLocation, { icon: markerIcon }).addTo (this.map);
 
     this.greenPoints.forEach((greenPoint: any) => {
-      L.marker([greenPoint.latitude, greenPoint.longitude], { icon: customIcon }).addTo(this.map)
+      L.marker([greenPoint.latitude, greenPoint.longitude], { icon: customIcon }).addTo(this.map).bindPopup(
+        `<b>${greenPoint.name}</b><br>${greenPoint.desc}`)
     });
 
     // Habilitar los botones cuando se hace clic en el mapa
