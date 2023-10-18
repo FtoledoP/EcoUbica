@@ -10,7 +10,7 @@ import { ReportComponent } from './admin/report/report.component';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: '/index',
+    redirectTo: '/login',
     pathMatch: 'full'
   },
   {

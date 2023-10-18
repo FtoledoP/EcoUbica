@@ -29,6 +29,7 @@ export class SidebarComponent implements OnInit{
     this.userService.isLoggedIn.subscribe((loggedIn) => {
       this.userLoggedIn = loggedIn;
       this.userEmail = this.userService.userEmail;
+      console.log('User Email: ' + this.userEmail)
       const usersRef = collection(this.firestore, 'users');
       const userQuery = query(usersRef, where('email', '==', this.userEmail));
       const querySnapshot = getDocs(userQuery).then((querySnapshot) => {

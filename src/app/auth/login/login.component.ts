@@ -42,7 +42,10 @@ export class LoginComponent {
       }, 3000);
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    console.log(this.userService.userEmail)
+    this.userService.userEmail = undefined;
+  }
 
   validationMessages = {
     username: {

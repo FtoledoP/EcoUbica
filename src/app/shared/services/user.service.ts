@@ -22,7 +22,8 @@ export class UserService {
               private router: Router) {}
 
   register(email:any, password:any){
-    return createUserWithEmailAndPassword(this.auth, email, password);
+    createUserWithEmailAndPassword(this.auth, email, password);
+    return this.auth.signOut();
   }
 
   async createUser(data:any){
@@ -55,9 +56,9 @@ export class UserService {
   }
 
   logout(){
-    this.userEmail = '';
     this.auth.signOut();
     this.router.navigate(['/login']);
+    this.userEmail = undefined;
     this.loggedIn.next(false);
   }
 

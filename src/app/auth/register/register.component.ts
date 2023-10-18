@@ -49,7 +49,6 @@ export class RegisterComponent {
         this.userService.createUser(data).then((res) => {
           console.log(res);
           console.log('Usuario creado exitosamente');
-          this.router.navigate(['/login']);
         }).catch((err) => {console.log(err)});
         this.registerForm.reset()
       }).catch((err) => {console.log(err)});
@@ -79,5 +78,8 @@ export class RegisterComponent {
     }
   };
 
+  login(){
+    this.router.navigate(['/login']);
+  }
 
 }

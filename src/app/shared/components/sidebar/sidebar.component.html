@@ -1,4 +1,4 @@
-<mat-sidenav-container class="sidenav-container">
+<mat-sidenav-container *ngIf="userLoggedIn" class="sidenav-container">
   <mat-sidenav #sidenav mode="side" opened>
     <div class="sidebar-header">
       <img src="assets/ECOUBICA2-LOGO.png" alt="" class="logo">
