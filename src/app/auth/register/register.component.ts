@@ -49,8 +49,10 @@ export class RegisterComponent {
         this.userService.createUser(data).then((res) => {
           console.log(res);
           console.log('Usuario creado exitosamente');
+          this.login();
         }).catch((err) => {console.log(err)});
         this.registerForm.reset()
+        console.log('Usuario no registrado');
       }).catch((err) => {console.log(err)});
     } else {
       console.log('Formulario inválido');

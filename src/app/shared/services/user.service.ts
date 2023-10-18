@@ -22,8 +22,7 @@ export class UserService {
               private router: Router) {}
 
   register(email:any, password:any){
-    createUserWithEmailAndPassword(this.auth, email, password);
-    return this.auth.signOut();
+    return createUserWithEmailAndPassword(this.auth, email, password);
   }
 
   async createUser(data:any){
@@ -40,18 +39,11 @@ export class UserService {
   login(email:any, password:any){
     const auth = getAuth();
     signInWithEmailAndPassword(this.auth, email, password).then((res) => {
-      onAuthStateChanged(auth, (user) => {
-        if (user) {
-          this.userEmail = user.email;
+          this.userEmail = email;
           this.loggedIn.next(true);
           this.getUser(this.userEmail)
           this.router.navigate(['/index']);
           return console.log(this.userEmail);
-        } else {
-          this.userEmail = null;
-          return console.log('Se ha cerrado sesion');
-        }
-      })
     }).catch((err) => {console.log(err)})
   }
 
