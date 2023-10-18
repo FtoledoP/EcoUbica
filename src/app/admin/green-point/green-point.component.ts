@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import * as L from 'leaflet';
 import { PlacesService } from 'src/app/shared/services/places.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserService } from 'src/app/shared/services/user.service';
+
 
 interface GeocodingResult {
   formatted_address: string;
@@ -18,7 +21,12 @@ interface GeocodingResult {
   styleUrls: ['./green-point.component.scss']
 })
 
+
 export class GreenPointComponent implements OnInit {
+  
+  userEmail:any;
+  modalOpen: boolean = false;
+  greenPointForm: FormGroup;
   private map: any;
   private marker: L.Marker | null = null; // Variable para almacenar el marcador
   userLocation: [number, number] = [-33.45694, -70.64827];
@@ -29,11 +37,19 @@ export class GreenPointComponent implements OnInit {
   emptyLoc = [0, 0];
   greenPoints: any[] = [];
 
-  constructor(private place: PlacesService) {
+  constructor(private place: PlacesService,
+              private fb: FormBuilder,
+              private userService: UserService) {
     navigator.geolocation.getCurrentPosition((loc) => {
       this.userLocation = [loc.coords.latitude, loc.coords.longitude];
     });
+    this.userEmail = this.userService.userEmail;
     this.greenPoints = this.place.greenPoints;
+    console.log(this.greenPoints);
+    this.greenPointForm = this.fb.group({
+      name: ['', Validators.required],
+      description: ['', Validators.required]
+    });
   }
 
   ngOnInit(): void {
@@ -83,12 +99,8 @@ export class GreenPointComponent implements OnInit {
       // Puedes guardar las coordenadas en variables como antes
       this.selectedLat = clickedLatLng.lat;
       this.selectedLong = clickedLatLng.lng;
+      console.log("NO MODAL" + this.selectedLat, this.selectedLong);
     });
-  }
-
-  addMarker(): void {
-    this.markerCoordinates = [this.selectedLat, this.selectedLong];
-    console.log(this.markerCoordinates);
   }
 
   removeMarker(): void {
@@ -106,4 +118,21 @@ export class GreenPointComponent implements OnInit {
     this.map.setView(this.userLocation);
   }
 
+  openModal() {
+    this.modalOpen = true;
+  }
+
+  closeModal() {
+    this.modalOpen = false;
+  }
+
+  addGreenPoint() {
+    if (this.greenPointForm.valid) {
+      this.markerCoordinates = [this.selectedLat, this.selectedLong];
+      const { name, description } = this.greenPointForm.value;
+      console.log("MODAL" + name, description, this.markerCoordinates, this.userEmail);
+      this.place.createGreenPoint(name, description, this.markerCoordinates[0], this.markerCoordinates[1], this.userEmail);
+      this.closeModal();
+    }
+  }
 }

@@ -42,3 +42,17 @@ button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
+
+/* Estilos para centrar el modal */
+.centered-modal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+/* Ajustes específicos para el modal */
+.modal {
+  z-index: 1051; /* Asegúrate de que el modal aparezca encima del fondo */
+}
+

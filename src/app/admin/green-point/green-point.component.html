@@ -7,14 +7,41 @@
 <div class="row">
   <div id="button-container">
     <button id="center-map-button" (click)="centerMapOnUser()">Centrar mapa</button>
-    <button id="center-map-button" (click)="centerMapOnUser()">Agregar punto verde</button>
   </div>
 </div>
 <div class="row">
   <div id="button-container">
-    <button id="add-marker-button" (click)="addMarker()" [disabled]="!markerEnabled">Agregar Marcador</button>
-    <button id="remove-marker-button" (click)="removeMarker()" [disabled]="!markerEnabled">Eliminar Marcador</button>
+    <button id="add-marker-button" (click)="openModal()" [disabled]="!markerEnabled">Agregar Punto Verde</button>
+    <button id="remove-marker-button" (click)="removeMarker()" [disabled]="!markerEnabled">Eliminar Punto Verde</button>
   </div>
 </div>
+
+<!-- Modal -->
+<div class="modal" tabindex="-1" role="dialog" [ngClass]="{'d-block': modalOpen}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title">Agregar Punto Verde</h1>
+        <button type="button" class="close" (click)="closeModal()">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form [formGroup]="greenPointForm" (ngSubmit)="addGreenPoint()">
+          <div class="form-group">
+            <label for="name">Nombre</label>
+            <input type="text" class="form-control" id="name" formControlName="name">
+          </div>
+          <div class="form-group mt-3">
+            <label for="description">Descripción</label>
+            <textarea class="form-control" id="description" formControlName="description"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary mt-3">Agregar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
 
 

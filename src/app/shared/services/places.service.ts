@@ -226,6 +226,14 @@ export class PlacesService {
 
   }
 
-
+  createGreenPoint(name: string, desc: string, lat: number, long: number, userEmail: string){
+    this.greenPoints.push({
+      desc: desc,
+      latitude: lat,
+      longitude: long,
+      name: name,
+      userEmail: userEmail
+    })
+  }
 
 }
