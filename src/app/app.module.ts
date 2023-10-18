@@ -27,6 +27,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { GreenPointComponent } from './admin/green-point/green-point.component';
 import { ReportComponent } from './admin/report/report.component';
 import { AuthGuard } from './shared/guards/auth.guard';
+import { NotFoundComponent } from './admin/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -39,6 +40,7 @@ import { AuthGuard } from './shared/guards/auth.guard';
     FooterComponent,
     GreenPointComponent,
     ReportComponent,
+    NotFoundComponent,
   ],
   imports: [
     BrowserModule,

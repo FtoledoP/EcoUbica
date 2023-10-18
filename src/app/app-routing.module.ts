@@ -7,6 +7,7 @@ import { RegisterComponent } from './auth/register/register.component';
 import { GreenPointComponent } from './admin/green-point/green-point.component';
 import { ReportComponent } from './admin/report/report.component';
 import { AuthGuard } from './shared/guards/auth.guard';
+import { NotFoundComponent } from './admin/not-found/not-found.component';
 
 const routes: Routes = [
   {
@@ -39,6 +40,11 @@ const routes: Routes = [
     path: 'report',
     component: ReportComponent,
     canActivate: [AuthGuard],
+  },
+  {
+    path: '**',
+    component: NotFoundComponent,
+    canActivate: [],
   }
 ];
 
