@@ -6,17 +6,13 @@ import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { GreenPointComponent } from './admin/green-point/green-point.component';
 import { ReportComponent } from './admin/report/report.component';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 const routes: Routes = [
   {
     path: '',
     redirectTo: '/login',
     pathMatch: 'full'
-  },
-  {
-    path: 'index',
-    component: IndexComponent,
-    canActivate: [],
   },
   {
     path: 'login',
@@ -29,15 +25,20 @@ const routes: Routes = [
     canActivate: [],
   },
   {
+    path: 'index',
+    component: IndexComponent,
+    canActivate: [AuthGuard],
+  },
+  {
     path: 'greenpoint',
     component: GreenPointComponent,
-    canActivate: [],
+    canActivate: [AuthGuard],
   }
   ,
   {
     path: 'report',
     component: ReportComponent,
-    canActivate: [],
+    canActivate: [AuthGuard],
   }
 ];
 

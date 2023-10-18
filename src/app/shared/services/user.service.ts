@@ -71,7 +71,10 @@ export class UserService {
         this.currentUser = doc.data();
       })
     });
+  }
 
+  isLogged(): boolean {
+    return !!this.auth.currentUser;
   }
 
 }

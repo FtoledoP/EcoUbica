@@ -26,6 +26,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { HttpClientModule } from '@angular/common/http';
 import { GreenPointComponent } from './admin/green-point/green-point.component';
 import { ReportComponent } from './admin/report/report.component';
+import { AuthGuard } from './shared/guards/auth.guard';
 
 @NgModule({
   declarations: [
@@ -57,7 +58,7 @@ import { ReportComponent } from './admin/report/report.component';
     HttpClientModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
