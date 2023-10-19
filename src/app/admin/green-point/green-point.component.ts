@@ -26,7 +26,8 @@ interface GeocodingResult {
 
 export class GreenPointComponent implements OnInit {
 
-  userEmail:any;
+  userMarker: any
+  userEmail: any;
   modalOpen: boolean = false;
   greenPointForm: FormGroup;
   private map: any;
@@ -68,9 +69,9 @@ export class GreenPointComponent implements OnInit {
   });
 
   constructor(private place: PlacesService,
-              private fb: FormBuilder,
-              private userService: UserService,
-              private spinner: NgxSpinnerService) {
+    private fb: FormBuilder,
+    private userService: UserService,
+    private spinner: NgxSpinnerService) {
     navigator.geolocation.getCurrentPosition((loc) => {
       this.userLocation = [loc.coords.latitude, loc.coords.longitude];
     });
@@ -84,18 +85,18 @@ export class GreenPointComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(this.greenPoints.length == 0){
+    if (this.greenPoints.length == 0) {
       this.spinner.show();
       setTimeout(() => {
         this.initMap();
         this.spinner.hide();
-      }, 1000);
-    }else{
+      }, 1500);
+    } else {
       this.initMap();
     }
   }
 
-  setGreenPoints(){
+  setGreenPoints() {
     this.greenPoints = this.place.greenPoints;
   }
 
@@ -106,13 +107,13 @@ export class GreenPointComponent implements OnInit {
       attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map);
 
-    L.marker(this.userLocation, { icon: this.markerIcon }).addTo (this.map);
+    this.userLocationMarker()
 
     this.place.greenPoints.forEach((greenPoint) => {
-      if(greenPoint.userEmail == this.userEmail){
+      if (greenPoint.userEmail == this.userEmail) {
         L.marker([greenPoint.latitude, greenPoint.longitude], { icon: this.userGreenPoint }).addTo(this.map).bindPopup(
           `<b>${greenPoint.name}</b><br>${greenPoint.desc}`)
-      }else{
+      } else {
         L.marker([greenPoint.latitude, greenPoint.longitude], { icon: this.customIcon }).addTo(this.map).bindPopup(
           `<b>${greenPoint.name}</b><br>${greenPoint.desc}`)
       }
@@ -136,9 +137,9 @@ export class GreenPointComponent implements OnInit {
     });
   }
 
-  refreshGreenPoints(){
+  refreshGreenPoints() {
     this.removeMap();
-    if(this.greenPoints.length == 0){
+    if (this.greenPoints.length == 0) {
       this.spinner.show();
       setTimeout(() => {
         this.initMap();
@@ -154,6 +155,10 @@ export class GreenPointComponent implements OnInit {
     }
   }
 
+  userLocationMarker() {
+    this.userMarker = L.marker(this.userLocation, { icon: this.markerIcon }).addTo(this.map);
+  }
+
   removeMarker(): void {
     // Eliminar el marcador del mapa
     if (this.marker) {
@@ -166,6 +171,8 @@ export class GreenPointComponent implements OnInit {
   }
 
   centerMapOnUser(): void {
+    this.map.removeLayer(this.userMarker)
+    this.userLocationMarker()
     this.map.setView(this.userLocation);
   }
 
@@ -196,9 +203,9 @@ export class GreenPointComponent implements OnInit {
   openLegendModal() {
     this.legendModalOpen = true;
   }
-  
+
   closeLegendModal() {
     this.legendModalOpen = false;
   }
-  
+
 }
