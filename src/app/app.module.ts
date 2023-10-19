@@ -29,6 +29,7 @@ import { ReportComponent } from './admin/report/report.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { NotFoundComponent } from './admin/not-found/not-found.component';
 import { UserComponent } from './admin/user/user.component';
+import { CarouselModule } from 'ngx-bootstrap/carousel';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { UserComponent } from './admin/user/user.component';
     provideFirestore(() => getFirestore()),
     ReactiveFormsModule,
     NgxSpinnerModule,
-    HttpClientModule
+    HttpClientModule,
+    CarouselModule.forRoot(),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [AuthGuard],
