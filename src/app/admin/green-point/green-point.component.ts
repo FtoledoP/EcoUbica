@@ -38,6 +38,34 @@ export class GreenPointComponent implements OnInit {
   selectedLong: number = 0;
   emptyLoc = [0, 0];
   greenPoints: any[] = [];
+  selectedLocation: any;
+  legendModalOpen: boolean = false;
+
+
+  markerIcon = L.icon({
+    iconUrl: 'assets/marcador-de-posicion.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+  });
+  customIcon = L.icon({
+    iconUrl: 'assets/alfiler.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+  });
+  select = L.icon({
+    iconUrl: 'assets/seleccion.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+  });
+  userGreenPoint = L.icon({
+    iconUrl: 'assets/usergreenpoint.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+  });
 
   constructor(private place: PlacesService,
               private fb: FormBuilder,
@@ -62,6 +90,8 @@ export class GreenPointComponent implements OnInit {
         this.initMap();
         this.spinner.hide();
       }, 1000);
+    }else{
+      this.initMap();
     }
   }
 
@@ -76,24 +106,16 @@ export class GreenPointComponent implements OnInit {
       attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(this.map);
 
-    const markerIcon = L.icon({
-      iconUrl: 'assets/marcador-de-posicion.png',
-      iconSize: [32, 32],
-      iconAnchor: [16, 32],
-      popupAnchor: [0, -32]
-    });
-    const customIcon = L.icon({
-      iconUrl: 'assets/alfiler.png',
-      iconSize: [32, 32],
-      iconAnchor: [16, 32],
-      popupAnchor: [0, -32]
-    });
-
-    L.marker(this.userLocation, { icon: markerIcon }).addTo (this.map);
+    L.marker(this.userLocation, { icon: this.markerIcon }).addTo (this.map);
 
     this.place.greenPoints.forEach((greenPoint) => {
-      L.marker([greenPoint.latitude, greenPoint.longitude], { icon: customIcon }).addTo(this.map).bindPopup(
-        `<b>${greenPoint.name}</b><br>${greenPoint.desc}`)
+      if(greenPoint.userEmail == this.userEmail){
+        L.marker([greenPoint.latitude, greenPoint.longitude], { icon: this.userGreenPoint }).addTo(this.map).bindPopup(
+          `<b>${greenPoint.name}</b><br>${greenPoint.desc}`)
+      }else{
+        L.marker([greenPoint.latitude, greenPoint.longitude], { icon: this.customIcon }).addTo(this.map).bindPopup(
+          `<b>${greenPoint.name}</b><br>${greenPoint.desc}`)
+      }
     });
 
     // Habilitar los botones cuando se hace clic en el mapa
@@ -105,7 +127,7 @@ export class GreenPointComponent implements OnInit {
       }
 
       const clickedLatLng: L.LatLng = e.latlng;
-      this.marker = L.marker(clickedLatLng, { icon: customIcon }).addTo(this.map);
+      this.marker = L.marker(clickedLatLng, { icon: this.select }).addTo(this.map);
 
       // Puedes guardar las coordenadas en variables como antes
       this.selectedLat = clickedLatLng.lat;
@@ -120,10 +142,10 @@ export class GreenPointComponent implements OnInit {
       this.spinner.show();
       setTimeout(() => {
         this.initMap();
+        this.map.setView(this.selectedLocation)
         this.spinner.hide();
       }, 1000);
     }
-    console.log(this.greenPoints)
   }
 
   removeMap() {
@@ -157,6 +179,7 @@ export class GreenPointComponent implements OnInit {
 
   addGreenPoint() {
     if (this.greenPointForm.valid) {
+      this.selectedLocation = [this.selectedLat, this.selectedLong];
       const data = this.greenPointForm.value;
       data.latitude = this.selectedLat;
       data.longitude = this.selectedLong;
@@ -169,4 +192,13 @@ export class GreenPointComponent implements OnInit {
       this.closeModal();
     }
   }
+
+  openLegendModal() {
+    this.legendModalOpen = true;
+  }
+  
+  closeLegendModal() {
+    this.legendModalOpen = false;
+  }
+  
 }

@@ -7,6 +7,7 @@
 <div class="row">
   <div id="button-container">
     <button id="center-map-button" (click)="centerMapOnUser()">Centrar mapa</button>
+    <button id="show-legend-button" (click)="openLegendModal()">Ver simbología</button>
   </div>
 </div>
 <div class="row">
@@ -42,6 +43,35 @@
           </div>
           <button type="submit" class="btn btn-primary mt-3">Agregar</button>
         </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngClass]="{'d-block': legendModalOpen}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title">Simbología Puntos Verdes 🌱</h1>
+        <button type="button" class="close" (click)="closeLegendModal()">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="legend-item">
+            <img src="assets/alfiler.png" alt="">
+            <span style="font-weight: bold;">Puntos verdes de la comunidad</span>
+          </div>
+          <div class="legend-item">
+            <img src="assets/usergreenpoint.png" alt="">
+            <span style="font-weight: bold;">Tus puntos verdes</span>
+          </div>
+          <div class="legend-item">
+            <img src="assets/seleccion.png" alt="">
+            <span style="font-weight: bold;">Punto verde marcado</span>
+          </div>
+        </div>
       </div>
     </div>
   </div>

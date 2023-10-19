@@ -16,10 +16,17 @@
 }
 
 .row {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* Centrar horizontalmente */
+  display: flex;  /* Usa flexbox para organizar los elementos en fila */
+  align-items: center;  /* Alinea verticalmente los elementos en el centro */
+  gap: 10px;  /* Espacio entre elementos */
 }
+
+.legend-item {
+  display: flex;  /* Los elementos dentro de legend-item también se organizan en fila */
+  align-items: center;  /* Alinea verticalmente los elementos en el centro */
+  gap: 5px;  /* Espacio entre la imagen y el texto */
+}
+
 
 #button-container {
   display: flex;
@@ -38,11 +45,6 @@ button {
   margin: 0 5px; /* Espacio entre los botones */
 }
 
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
-
 /* Estilos para centrar el modal */
 .centered-modal {
   display: flex;
@@ -56,3 +58,25 @@ button:disabled {
   z-index: 1051; /* Asegúrate de que el modal aparezca encima del fondo */
 }
 
+#remove-marker-button{
+  background-color: var(--color-danger);
+}
+
+#add-marker-button{
+    background-color: var(--color-primary);
+}
+
+#remove-marker-button:disabled{
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+#add-marker-button:disabled{
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+img {
+  width: auto;
+  height: 32px;
+}
