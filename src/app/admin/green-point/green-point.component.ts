@@ -3,6 +3,8 @@ import * as L from 'leaflet';
 import { PlacesService } from 'src/app/shared/services/places.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/shared/services/user.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 
 
 interface GeocodingResult {
@@ -39,23 +41,32 @@ export class GreenPointComponent implements OnInit {
 
   constructor(private place: PlacesService,
               private fb: FormBuilder,
-              private userService: UserService) {
+              private userService: UserService,
+              private spinner: NgxSpinnerService) {
     navigator.geolocation.getCurrentPosition((loc) => {
       this.userLocation = [loc.coords.latitude, loc.coords.longitude];
     });
     this.userEmail = this.userService.userEmail;
-    this.greenPoints = this.place.greenPoints;
+    this.setGreenPoints();
     console.log(this.greenPoints);
     this.greenPointForm = this.fb.group({
       name: ['', Validators.required],
-      description: ['', Validators.required]
+      desc: ['', Validators.required]
     });
   }
 
   ngOnInit(): void {
-    setTimeout(() => {
-      this.initMap();
-    }, 50);
+    if(this.greenPoints.length == 0){
+      this.spinner.show();
+      setTimeout(() => {
+        this.initMap();
+        this.spinner.hide();
+      }, 1000);
+    }
+  }
+
+  setGreenPoints(){
+    this.greenPoints = this.place.greenPoints;
   }
 
   initMap(): void {
@@ -80,7 +91,7 @@ export class GreenPointComponent implements OnInit {
 
     L.marker(this.userLocation, { icon: markerIcon }).addTo (this.map);
 
-    this.greenPoints.forEach((greenPoint: any) => {
+    this.place.greenPoints.forEach((greenPoint) => {
       L.marker([greenPoint.latitude, greenPoint.longitude], { icon: customIcon }).addTo(this.map).bindPopup(
         `<b>${greenPoint.name}</b><br>${greenPoint.desc}`)
     });
@@ -101,6 +112,24 @@ export class GreenPointComponent implements OnInit {
       this.selectedLong = clickedLatLng.lng;
       console.log("NO MODAL" + this.selectedLat, this.selectedLong);
     });
+  }
+
+  refreshGreenPoints(){
+    this.removeMap();
+    if(this.greenPoints.length == 0){
+      this.spinner.show();
+      setTimeout(() => {
+        this.initMap();
+        this.spinner.hide();
+      }, 1000);
+    }
+    console.log(this.greenPoints)
+  }
+
+  removeMap() {
+    if (this.map) {
+      this.map.remove();
+    }
   }
 
   removeMarker(): void {
@@ -129,11 +158,14 @@ export class GreenPointComponent implements OnInit {
   addGreenPoint() {
     if (this.greenPointForm.valid) {
       const data = this.greenPointForm.value;
-      data.latitude = this.markerCoordinates[0];
-      data.longitude = this.markerCoordinates[1];
+      data.latitude = this.selectedLat;
+      data.longitude = this.selectedLong;
       data.userEmail = this.userEmail;
-      const { name, description } = this.greenPointForm.value;
-      console.log("MODAL" + data);
+      console.log("MODAL" + data.latitude, data.longitude);
+      this.place.addGreenPoint(data);
+      this.place.getGreenPoints();
+      this.setGreenPoints();
+      this.refreshGreenPoints();
       this.closeModal();
     }
   }

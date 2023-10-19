@@ -16,6 +16,10 @@
   </div>
 </div>
 
+<!-- Spinner -->
+<ngx-spinner bdColor = "rgba(0,0,0,0.8)" size = "medium" color = "#fff" type = "ball-8bits" [fullScreen] = "true"><p style="color: white" > </p></ngx-spinner>
+
+
 <!-- Modal -->
 <div class="modal" tabindex="-1" role="dialog" [ngClass]="{'d-block': modalOpen}">
   <div class="modal-dialog" role="document">
@@ -33,8 +37,8 @@
             <input type="text" class="form-control" id="name" formControlName="name">
           </div>
           <div class="form-group mt-3">
-            <label for="description">Descripción</label>
-            <textarea class="form-control" id="description" formControlName="description"></textarea>
+            <label for="desc">Descripción</label>
+            <textarea class="form-control" id="desc" formControlName="desc"></textarea>
           </div>
           <button type="submit" class="btn btn-primary mt-3">Agregar</button>
         </form>

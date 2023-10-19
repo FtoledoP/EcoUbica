@@ -19,7 +19,8 @@ export class UserService {
 
   constructor(private auth: Auth,
               private firestore: Firestore,
-              private router: Router) {}
+              private router: Router) {
+  }
 
   register(email:any, password:any){
     return createUserWithEmailAndPassword(this.auth, email, password);
@@ -37,13 +38,11 @@ export class UserService {
   }
 
   login(email:any, password:any){
-    const auth = getAuth();
     signInWithEmailAndPassword(this.auth, email, password).then((res) => {
           this.userEmail = email;
           this.loggedIn.next(true);
           this.getUser(this.userEmail)
           this.router.navigate(['/index']);
-          return console.log(this.userEmail);
     }).catch((err) => {console.log(err)})
   }
 
@@ -75,6 +74,18 @@ export class UserService {
 
   isLogged(): boolean {
     return !!this.auth.currentUser;
+  }
+
+  checkAuthState() {
+    onAuthStateChanged(this.auth, (user) => {
+      if (user) {
+        this.loggedIn.next(true);
+        this.getUser(user.email);
+        this.userEmail = user.email;
+      } else {
+        this.loggedIn.next(false);
+      }
+    });
   }
 
 }

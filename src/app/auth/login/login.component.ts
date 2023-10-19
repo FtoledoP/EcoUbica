@@ -32,14 +32,11 @@ export class LoginComponent {
       this.userService.login(this.loginForm.value.email, this.loginForm.value.password)
       setTimeout(() => {
       this.spinner.hide();
-      }, 3000);
+      }, 2000);
     } else {
       this.spinner.hide();
       console.log('Formulario inválido');
     }
-    setTimeout(() => {
-      this.spinner.hide();
-      }, 3000);
   }
 
   ngOnInit() {
