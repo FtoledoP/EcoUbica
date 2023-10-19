@@ -23,7 +23,7 @@ interface GeocodingResult {
 
 
 export class GreenPointComponent implements OnInit {
-  
+
   userEmail:any;
   modalOpen: boolean = false;
   greenPointForm: FormGroup;
@@ -128,10 +128,12 @@ export class GreenPointComponent implements OnInit {
 
   addGreenPoint() {
     if (this.greenPointForm.valid) {
-      this.markerCoordinates = [this.selectedLat, this.selectedLong];
+      const data = this.greenPointForm.value;
+      data.latitude = this.markerCoordinates[0];
+      data.longitude = this.markerCoordinates[1];
+      data.userEmail = this.userEmail;
       const { name, description } = this.greenPointForm.value;
-      console.log("MODAL" + name, description, this.markerCoordinates, this.userEmail);
-      this.place.createGreenPoint(name, description, this.markerCoordinates[0], this.markerCoordinates[1], this.userEmail);
+      console.log("MODAL" + data);
       this.closeModal();
     }
   }

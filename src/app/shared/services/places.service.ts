@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Firestore, collection, addDoc, query, where, getDocs, setDoc, doc, getDoc } from '@angular/fire/firestore';
+
 
 
 @Injectable({
@@ -215,7 +217,8 @@ export class PlacesService {
     }
   ]
 
-  constructor(private httpClient: HttpClient) {
+  constructor(private httpClient: HttpClient,
+              private firestore: Firestore) {
     this.getUserLocation();
   }
 
@@ -234,6 +237,11 @@ export class PlacesService {
       name: name,
       userEmail: userEmail
     })
+  }
+
+  addGreenPont(greenpoint: any[]){
+    const placesRef = collection(this.firestore, 'green-points');
+    addDoc(doc(placesRef, greenpoint.userEmail), {})
   }
 
 }

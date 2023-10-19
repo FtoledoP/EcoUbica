@@ -28,6 +28,7 @@ import { GreenPointComponent } from './admin/green-point/green-point.component';
 import { ReportComponent } from './admin/report/report.component';
 import { AuthGuard } from './shared/guards/auth.guard';
 import { NotFoundComponent } from './admin/not-found/not-found.component';
+import { UserComponent } from './admin/user/user.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { NotFoundComponent } from './admin/not-found/not-found.component';
     GreenPointComponent,
     ReportComponent,
     NotFoundComponent,
+    UserComponent,
   ],
   imports: [
     BrowserModule,
