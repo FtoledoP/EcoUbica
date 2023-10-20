@@ -5,6 +5,7 @@ import { Menu, NavService } from '../../services/nav.service';
 import { UserService } from '../../services/user.service';
 import { getAuth } from "firebase/auth";
 import { Firestore, collection, addDoc, query, where, getDocs, setDoc, doc, getDoc } from '@angular/fire/firestore';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 
@@ -23,7 +24,8 @@ export class SidebarComponent implements OnInit{
 
   constructor(public navServices: NavService,
               private userService: UserService,
-              private firestore: Firestore) {
+              private firestore: Firestore,
+              private spinner: NgxSpinnerService) {
     this.menuItems = this.navServices.MENUITEMS
 
     this.userService.isLoggedIn.subscribe((loggedIn) => {
@@ -44,6 +46,9 @@ export class SidebarComponent implements OnInit{
   }
 
   ngOnInit(): void {
+    if(this.currentUser){
+      this.spinner.hide();
+    }
   }
 
   logout(){

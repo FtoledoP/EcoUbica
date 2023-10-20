@@ -88,4 +88,14 @@ export class UserService {
     });
   }
 
+  async updateUser(data:any){
+    data.role = 'user';
+    const usersRef = collection(this.firestore, 'users');
+    return await setDoc(doc(usersRef, data.correo), {
+            username: data.nombreUsuario,
+            email: data.correo,
+            role: data.role,
+            password: data.contrasena});
+  }
+
 }

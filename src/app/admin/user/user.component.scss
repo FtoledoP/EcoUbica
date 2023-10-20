@@ -79,3 +79,9 @@ button {
     flex-direction: column;
     justify-content: center;
 }
+
+.validation-message {
+  display: block; /* Hacer que los mensajes de validación sean bloques */
+  color: red; /* Cambiar el color del mensaje de validación (ajusta según tu preferencia) */
+}
+

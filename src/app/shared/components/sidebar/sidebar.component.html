@@ -12,6 +12,8 @@
         </mat-list-item>
       </button>
 
+      <ngx-spinner bdColor = "rgba(0,0,0,0.8)" size = "medium" color = "#fff" type = "ball-8bits" [fullScreen] = "true"><p style="color: white" > </p></ngx-spinner>
+
       <div class="div" *ngIf="!userLoggedIn">
         <div class="spacer"></div>
         <button [routerLink]="'/login'" class="highlighted-option">

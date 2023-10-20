@@ -40,7 +40,8 @@ export class UserComponent {
               private formBuilder: FormBuilder,
               private usersService: UserService,
               private firestore: Firestore,
-              private spinner: NgxSpinnerService) {
+              private spinner: NgxSpinnerService,
+              private userService: UserService) {
     this.userEmail = this.usersService.userEmail;
     this.currentUser = this.usersService.currentUser;
     this.usuario.correo = this.currentUser.email;
@@ -54,11 +55,14 @@ export class UserComponent {
     this.userForm = this.formBuilder.group({
       correo: [this.usuario.correo, Validators.required],
     nombreUsuario: [this.usuario.nombreUsuario, Validators.required],
-    contrasena: [this.usuario.contrasena, Validators.required],
+    contrasena: [this.usuario.contrasena, [Validators.required, Validators.minLength(6)]],
     });
     console.log('Current email: ' + this.userEmail)
     console.log('Current User: ' + this.currentUser);
     this.userForm.get('correo')?.disable();
+    this.userInfo.get('correo')?.disable();
+    this.userInfo.get('nombreUsuario')?.disable();
+    this.userInfo.get('contrasena')?.disable();
   }
 
   ngOnInit(): void {
@@ -80,14 +84,32 @@ export class UserComponent {
   }
 
   guardarCambios() {
-    // Lógica para guardar los cambios en los datos del usuario
+    this.userService.updateUser(this.usuario);
     console.log('Datos del usuario guardados:', this.usuario);
+    this.modalRef?.hide();
   }
 // La función para alternar la visibilidad de la contraseña
 toggleShowPass() {
   this.showPass = !this.showPass;
   }
 
+  validationMessages = {
+    username: {
+      required: 'Debe ingresar un nombre de usuario.'
+    },
+    email: {
+      required: 'Debe ingresar un correo electronico.',
+      email: 'El formato del correo electrónico no es válido.'
+    },
+    password: {
+      required: 'Debe ingresar una contraseña.',
+      minlength: 'La contraseña debe tener al menos 6 caracteres.'
+    },
+    confirmPassword: {
+      required: 'La confirmación de contraseña es obligatoria.',
+      passwordMismatch: 'Las contraseñas no coinciden.'
+    }
+  };
 
 }
 
