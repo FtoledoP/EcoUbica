@@ -1,0 +1,81 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90vh;
+}
+
+.mi-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 70%;
+    background-color: var(--color-tertiary);
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+}
+
+.user-info {
+    background-color: #f2f2f2;
+    border-radius: 10px;
+    padding: 20px;
+    width: 100%;
+    text-align: left;
+}
+
+.info-field {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+label {
+    font-weight: bold;
+    margin-right: 10px;
+    width: 120px;
+}
+
+input {
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+}
+
+button {
+    padding: 5px 10px;
+    background-color: var(--color-primary);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.contrasena-container {
+    display: flex;
+    align-items: center;
+}
+
+.contrasena-container input {
+    flex: 1;
+    /* El input ocupará el espacio restante */
+}
+
+.button-edit {
+    background-color: var(--color-secondary);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin: 0 5px; /* Espacio entre los botones */
+}
+
+.button-container{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}

@@ -30,6 +30,8 @@ import { AuthGuard } from './shared/guards/auth.guard';
 import { NotFoundComponent } from './admin/not-found/not-found.component';
 import { UserComponent } from './admin/user/user.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
 
 @NgModule({
   declarations: [
@@ -62,6 +64,7 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
     NgxSpinnerModule,
     HttpClientModule,
     CarouselModule.forRoot(),
+    ModalModule.forRoot()
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [AuthGuard],

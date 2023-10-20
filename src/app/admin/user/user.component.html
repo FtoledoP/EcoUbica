@@ -1,1 +1,55 @@
-<p>user works!</p>
+<div class="container mt-5">
+    <div class="mi-div">
+        <div class="user-info mt-4">
+            <h2>Información de usuario</h2>
+            <form [formGroup]="userInfo">
+                <div class="info-field">
+                    <label>Correo:</label>
+                    <input type="text" formControlName="correo">
+                </div>
+                <div class="info-field">
+                    <label>Nombre de Usuario:</label>
+                    <input type="text" formControlName="nombreUsuario">
+                </div>
+                <div class="info-field">
+                    <label>Contraseña:</label>
+                    <input type="text" formControlName="contrasena">
+                </div>
+            </form>
+        </div>
+        <button type="button" class="button-edit mt-5" (click)="openModal(template)">
+            Editar
+        </button>
+    </div>
+</div>
+
+<ngx-spinner bdColor = "rgba(0,0,0,0.8)" size = "medium" color = "#fff" type = "ball-8bits" [fullScreen] = "true"><p style="color: white" > </p></ngx-spinner>
+
+
+<ng-template #template>
+    <div class="modal-header">
+        <h4 class="modal-title pull-left">Editar Usuario</h4>
+        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
+            <span aria-hidden="true" class="visually-hidden">&times;</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        <form [formGroup]="userForm" (ngSubmit)="guardarCambios()">
+            <div class="info-field">
+                <label>Correo:</label>
+                <input type="text" formControlName="correo">
+            </div>
+            <div class="info-field">
+                <label>Nombre de Usuario:</label>
+                <input type="text" formControlName="nombreUsuario">
+            </div>
+            <div class="info-field">
+                <label>Contraseña:</label>
+                <input type="text" formControlName="contrasena">
+            </div>
+            <div class="button-container">
+                <button type="submit" class="button-edit">Guardar Cambios</button>
+            </div>
+        </form>
+    </div>
+</ng-template>
