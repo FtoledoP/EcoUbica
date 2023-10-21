@@ -31,6 +31,9 @@ import { NotFoundComponent } from './admin/not-found/not-found.component';
 import { UserComponent } from './admin/user/user.component';
 import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import {MatCardModule} from '@angular/material/card';
+
 
 
 @NgModule({
@@ -64,7 +67,9 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     NgxSpinnerModule,
     HttpClientModule,
     CarouselModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    TabsModule.forRoot(),
+    MatCardModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [AuthGuard],

@@ -3,6 +3,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AbstractControl } from '@angular/forms';
 import { UserService } from 'src/app/shared/services/user.service';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
+
 
 @Component({
   selector: 'app-register',
@@ -15,7 +17,8 @@ export class RegisterComponent {
 
   constructor(private formBuilder: FormBuilder,
               private userService: UserService,
-              private router: Router) {
+              private router: Router,
+              private spinner: NgxSpinnerService) {
     this.registerForm = this.formBuilder.group({
       username: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -40,6 +43,7 @@ export class RegisterComponent {
 
 
   onSubmit() {
+    this.spinner.show();
     // Aquí puedes manejar la lógica de envío del formulario
     if (this.registerForm.valid) {
       console.log('Formulario válido:', this.registerForm.value);
@@ -50,12 +54,13 @@ export class RegisterComponent {
           console.log(res);
           console.log('Usuario creado exitosamente');
           this.login();
-        }).catch((err) => {console.log(err)});
+        }).catch((err) => {console.log(err); this.spinner.hide();});
         this.registerForm.reset()
         console.log('Usuario no registrado');
-      }).catch((err) => {console.log(err)});
+      }).catch((err) => {console.log(err); this.spinner.hide();});
     } else {
       console.log('Formulario inválido');
+      this.spinner.hide();
     }
   }
 
@@ -81,6 +86,7 @@ export class RegisterComponent {
   };
 
   login(){
+    this.spinner.hide();
     this.router.navigate(['/login']);
   }
 

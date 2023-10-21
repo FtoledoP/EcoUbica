@@ -53,7 +53,7 @@ export class UserComponent {
     contrasena: [this.usuario.contrasena, Validators.required],
     });
     this.userForm = this.formBuilder.group({
-      correo: [this.usuario.correo, Validators.required],
+    correo: [this.usuario.correo, Validators.required],
     nombreUsuario: [this.usuario.nombreUsuario, Validators.required],
     contrasena: [this.usuario.contrasena, [Validators.required, Validators.minLength(6)]],
     });
@@ -84,8 +84,14 @@ export class UserComponent {
   }
 
   guardarCambios() {
-    this.userService.updateUser(this.usuario);
-    console.log('Datos del usuario guardados:', this.usuario);
+    const user = {
+      username: this.userForm.value.nombreUsuario,
+      password: this.userForm.value.contrasena,
+      email: this.userInfo.value.correo,
+      role: 'user'
+    }
+    console.log('Datos del usuario guardados:', user);
+    this.userService.updateUser(user);
     this.modalRef?.hide();
   }
 // La función para alternar la visibilidad de la contraseña
