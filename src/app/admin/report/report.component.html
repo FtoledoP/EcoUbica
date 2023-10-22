@@ -1,17 +1,6 @@
 <div>
     <h1 id="title">🍃 Reportes 🍃</h1>
     <tabset class="tabset mt-5">
-        <tab [ngClass]="'tab-heading-custom'" heading="Hacer reporte" id="tab1">
-            <div class="reportes-container">
-              <div id="map-container">
-                <div id="map"></div>
-              </div>
-                <button type="button" (click)="openModal(template)">Hacer Reporte</button>
-                <div *ngIf="mostrarFormulario">
-                    <app-formulario-reporte></app-formulario-reporte>
-                </div>
-            </div>
-        </tab>
         <tab [ngClass]="'tab-heading-custom'" heading="Listado de reportes">
             <div class="reportes-container">
                 <div class="listado-reportes">
