@@ -33,13 +33,13 @@ export class GreenPointComponent implements OnInit {
   private map: any;
   private marker: L.Marker | null = null; // Variable para almacenar el marcador
   userLocation: [number, number] = [-33.45694, -70.64827];
-  markerEnabled = false; // Variable para habilitar/deshabilitar los botones
+  markerEnabled = false;
   markerCoordinates: [number, number] = [0, 0]; // Variable para almacenar las coordenadas del marcador
   selectedLat: number = 0;
   selectedLong: number = 0;
   emptyLoc = [0, 0];
   greenPoints: any[] = [];
-  selectedLocation: any;
+    selectedLocation: any;
   legendModalOpen: boolean = false;
 
 
