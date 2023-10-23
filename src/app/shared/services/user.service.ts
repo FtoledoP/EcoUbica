@@ -108,4 +108,8 @@ export class UserService {
             password: data.password});
   }
 
+  createReport(data:any){
+    const reportsRef = collection(this.firestore, 'reports');
+    addDoc(reportsRef, data);
+  }
 }

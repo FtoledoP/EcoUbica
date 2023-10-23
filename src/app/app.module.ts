@@ -33,6 +33,8 @@ import { CarouselModule } from 'ngx-bootstrap/carousel';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import {MatCardModule} from '@angular/material/card';
+import { AlertModule } from 'ngx-bootstrap/alert';
+
 
 
 
@@ -69,7 +71,8 @@ import {MatCardModule} from '@angular/material/card';
     CarouselModule.forRoot(),
     ModalModule.forRoot(),
     TabsModule.forRoot(),
-    MatCardModule
+    MatCardModule,
+    AlertModule.forRoot(),
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers: [AuthGuard],

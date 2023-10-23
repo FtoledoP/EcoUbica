@@ -4,6 +4,8 @@ import { PlacesService } from 'src/app/shared/services/places.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UserService } from 'src/app/shared/services/user.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { getDocs, query, where, collection, Firestore } from '@angular/fire/firestore';
+
 
 
 
@@ -41,6 +43,13 @@ export class GreenPointComponent implements OnInit {
   greenPoints: any[] = [];
     selectedLocation: any;
   legendModalOpen: boolean = false;
+  reportModalOpen: boolean = false;
+  reportForm: FormGroup;
+  selectedPoint: any = null;
+  markerReport = false;
+  reportName:any = null;
+  currentUser:any;
+
 
 
   markerIcon = L.icon({
@@ -71,16 +80,29 @@ export class GreenPointComponent implements OnInit {
   constructor(private place: PlacesService,
     private fb: FormBuilder,
     private userService: UserService,
-    private spinner: NgxSpinnerService) {
+    private spinner: NgxSpinnerService,
+    private firestore: Firestore) {
+      this.userEmail = this.userService.userEmail;
+      const usersRef = collection(this.firestore, 'users');
+      const userQuery = query(usersRef, where('email', '==', this.userEmail));
+      const querySnapshot = getDocs(userQuery).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          console.log(doc.data());
+          this.currentUser = doc.data();
+        })
+      });
     navigator.geolocation.getCurrentPosition((loc) => {
       this.userLocation = [loc.coords.latitude, loc.coords.longitude];
     });
-    this.userEmail = this.userService.userEmail;
     this.setGreenPoints();
     console.log(this.greenPoints);
     this.greenPointForm = this.fb.group({
       name: ['', Validators.required],
       desc: ['', Validators.required]
+    });
+    this.reportForm = this.fb.group({
+      reason: ['', Validators.required],
+      description: ['', Validators.required],
     });
   }
 
@@ -112,15 +134,35 @@ export class GreenPointComponent implements OnInit {
     this.place.greenPoints.forEach((greenPoint) => {
       if (greenPoint.userEmail == this.userEmail) {
         L.marker([greenPoint.latitude, greenPoint.longitude], { icon: this.userGreenPoint }).addTo(this.map).bindPopup(
-          `<b>${greenPoint.name}</b><br>${greenPoint.desc}`)
+          `<b>${greenPoint.name}</b><br>${greenPoint.desc}`).on('popupopen', (event) => {
+            this.selectedPoint = greenPoint.name;
+            this.markerReport = true;
+            this.reportName = greenPoint.name;
+            console.log('Datos del punto verde seleccionado:', greenPoint);
+          }).on('popupclose', (event) => {
+            this.selectedPoint = null; 
+            this.markerReport = false;
+            this.reportName = null;
+          });
       } else {
         L.marker([greenPoint.latitude, greenPoint.longitude], { icon: this.customIcon }).addTo(this.map).bindPopup(
-          `<b>${greenPoint.name}</b><br>${greenPoint.desc}`)
+          `<b>${greenPoint.name}</b><br>${greenPoint.desc}`).on('popupopen', (event) => {
+            this.selectedPoint = greenPoint.name;
+            this.markerReport = true;
+            this.reportName = greenPoint.name;
+            console.log('Datos del punto verde seleccionado:', greenPoint);
+          }).on('popupclose', (event) => {
+            this.selectedPoint = null; 
+            this.markerReport = false;
+            this.reportName = null;
+          });
       }
     });
 
     // Habilitar los botones cuando se hace clic en el mapa
     this.map.on('click', (e: any) => {
+      this.reportName = null;
+      this.markerReport = false;
       this.markerEnabled = true;
       if (this.marker) {
         // Si ya hay un marcador, elimínalo antes de agregar uno nuevo
@@ -206,6 +248,30 @@ export class GreenPointComponent implements OnInit {
 
   closeLegendModal() {
     this.legendModalOpen = false;
+  }
+
+  openReportModal() {
+    this.reportModalOpen = true;
+  }
+
+  closeReportModal() {
+    this.reportModalOpen = false;
+  }
+
+  createReport() {
+    if (this.reportForm.valid) {
+      const data = {
+        desc: this.reportForm.value.description,
+        reason: this.reportForm.value.reason,
+        userEmail: this.userEmail,
+        greenPointName: this.reportName,
+        username: this.currentUser.username
+      }
+      this.userService.createReport(data);
+      this.reportForm.reset();
+      this.closeReportModal();
+      this.reportName = null;
+    }
   }
 
 }

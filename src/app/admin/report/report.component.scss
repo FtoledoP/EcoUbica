@@ -1,5 +1,6 @@
 .reportes-container {
     height: 80vh;
+    max-height: 80vh;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -7,6 +8,7 @@
     padding: 20px;
     background-color: var(--color-cuaternary);
     border-radius: 10px;
+    overflow-y: auto; /* Agrega una barra de desplazamiento vertical cuando el contenido desborda la altura máxima */
 }
 
 button {
@@ -46,9 +48,23 @@ button {
 .tab-heading-custom {
     /* Estilos personalizados para el encabezado del tab */
     font-size: 20px;
-    font-weight: bolder;
     color: #000000; /* Color del texto */
     background-color: #ffffff; /* Color de fondo */
     padding: 20px; /* Espaciado interior */
     border-radius: 5px; /* Bordes redondeados */
+}
+
+.listado-reportes {
+    margin-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#mat-card {
+    flex: 0 0 calc(30% - 20px); /* Ajusta el ancho según la cantidad de elementos por fila */
+    margin-bottom: 20px; /* Espacio entre las filas */
+    min-width: 300px; /* Tamaño mínimo horizontal para cada mat-card */
+    min-height: 200px;
+    max-width: 30%; /* Ancho máximo para cada mat-card */
 }

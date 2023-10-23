@@ -11,6 +11,7 @@ import { CarouselConfig } from 'ngx-bootstrap/carousel';
 })
 export class IndexComponent {
 
+
   constructor() {}
 
   ngOnInit() {

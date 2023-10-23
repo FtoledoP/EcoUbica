@@ -31,4 +31,7 @@
     <button (click)="registrarse()" >Registrarse</button>
   </div>
 </div>
+<alert type="danger" *ngIf="mostrarAlert">
+  <strong>Correo o contraseña incorrectos</strong>
+</alert>
 

@@ -14,6 +14,7 @@
   <div id="button-container">
     <button id="add-marker-button" (click)="openModal()" [disabled]="!markerEnabled">Agregar Punto Verde</button>
     <button id="remove-marker-button" (click)="removeMarker()" [disabled]="!markerEnabled">Desmarcar Punto Verde</button>
+    <button id="report-button" (click)="openReportModal()" [disabled]="!markerReport">Hacer Reporte</button>
   </div>
 </div>
 
@@ -77,5 +78,30 @@
   </div>
 </div>
 
-
+<div class="modal" tabindex="-1" role="dialog" [ngClass]="{'d-block': reportModalOpen}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title">Crear Reporte</h1>
+        <button type="button" class="close" (click)="closeReportModal()">
+          <span>&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <h2>{{selectedPoint}}</h2>
+        <form [formGroup]="reportForm" (ngSubmit)="createReport()">
+          <div class="form-group">
+            <label for="reason">Motivo del reporte</label>
+            <input type="text" class="form-control" id="reason" formControlName="reason">
+          </div>
+          <div class="form-group mt-3">
+            <label for="description">Descripción</label>
+            <textarea class="form-control" id="description" formControlName="description"></textarea>
+          </div>
+          <button id="reportButton" type="submit" class="btn btn mt-3">Reportar</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 

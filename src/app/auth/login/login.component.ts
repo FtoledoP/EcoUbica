@@ -13,6 +13,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class LoginComponent {
 
+  dismissible = true;
+  mostrarAlert: boolean = false;
   loginForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
@@ -31,17 +33,25 @@ export class LoginComponent {
     if (this.loginForm.valid) {
       this.userService.login(this.loginForm.value.email, this.loginForm.value.password)
       setTimeout(() => {
-      this.spinner.hide();
+        this.spinner.hide();
+        this.mostrarMiAlert();
+        setTimeout(() => {
+          this.mostrarAlert = false;
+        }, 3000);
       }, 2000);
     } else {
-      this.spinner.hide();
       console.log('Formulario inválido');
+      this.spinner.hide();
     }
   }
 
   ngOnInit() {
     console.log(this.userService.userEmail)
     this.userService.userEmail = undefined;
+  }
+
+  mostrarMiAlert() {
+    this.mostrarAlert = true;
   }
 
   validationMessages = {

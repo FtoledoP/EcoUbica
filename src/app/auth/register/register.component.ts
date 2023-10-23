@@ -13,6 +13,8 @@ import { NgxSpinnerService } from 'ngx-spinner';
 })
 export class RegisterComponent {
 
+  mostrarAlert: boolean = false;
+
   registerForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder,
@@ -54,14 +56,41 @@ export class RegisterComponent {
           console.log(res);
           console.log('Usuario creado exitosamente');
           this.login();
-        }).catch((err) => {console.log(err); this.spinner.hide();});
-        this.registerForm.reset()
-        console.log('Usuario no registrado');
-      }).catch((err) => {console.log(err); this.spinner.hide();});
+        }).catch((err) => {
+          console.log(err); 
+          this.spinner.hide();});
+          this.registerForm.reset()
+          console.log('Usuario no registrado');
+          setTimeout(() => {
+            this.mostrarMiAlert();
+            setTimeout(() => {
+              this.mostrarAlert = false;
+            }, 3000);
+          }, 2000);
+      }).catch((err) => {
+        console.log(err); 
+        this.spinner.hide();
+        setTimeout(() => {
+          this.mostrarMiAlert();
+          setTimeout(() => {
+            this.mostrarAlert = false;
+          }, 3000);
+        }, 2000);
+      });
     } else {
+      setTimeout(() => {
+        this.mostrarMiAlert();
+        setTimeout(() => {
+          this.mostrarAlert = false;
+        }, 3000);
+      }, 2000);
       console.log('Formulario inválido');
       this.spinner.hide();
     }
+  }
+
+  mostrarMiAlert() {
+    this.mostrarAlert = true;
   }
 
   ngOnInit() {

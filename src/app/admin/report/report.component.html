@@ -1,45 +1,54 @@
 <div>
     <h1 id="title">🍃 Reportes 🍃</h1>
     <tabset class="tabset mt-5">
-        <tab [ngClass]="'tab-heading-custom'" heading="Listado de reportes">
+        <tab [ngClass]="'tab-heading-custom'" heading="Reportes de la comunidad">
             <div class="reportes-container">
+                <h2>Reportes de la comunidad</h2>
                 <div class="listado-reportes">
-                    <h2>Listado de Reportes</h2>
-                    <mat-card>
+                    <h1 *ngIf="!userReports">Hasta ahora no hay reportes 🤠</h1>
+                    <mat-card id="mat-card" *ngFor="let i of reports">
                         <mat-card-header>
-
+                            <div mat-card-avatar><mat-icon>account_circle</mat-icon></div>
+                            <mat-card-title>{{i.username}}</mat-card-title>
+                            <mat-card-subtitle>User</mat-card-subtitle>
                         </mat-card-header>
                         <mat-card-content>
-
+                            <mat-card-tittle><h2>🌱{{i.greenPointName}}</h2></mat-card-tittle>
+                            <br>
                         </mat-card-content>
-                        <mat-card-actions>
-
-                        </mat-card-actions>
+                        <mat-card-content>
+                            <p style="font-weight: bolder;">{{i.reason}}</p>
+                            <p style="align-items: center;">{{i.description}}</p>
+                        </mat-card-content>
                     </mat-card>
                 </div>
             </div>
         </tab>
         <tab [ngClass]="'tab-heading-custom'" heading="Tus reportes">
             <div class="reportes-container">
+                <h2>Tus reportes</h2>
                 <div class="listado-reportes">
-                    <h2>Tus Reportes</h2>
-                    <app-listado-reportes [reportes]="reportes"></app-listado-reportes>
+                    <h1 *ngIf="!userReports">Hasta ahora no hay reportes 🤠</h1>
+                    <mat-card id="mat-card" *ngFor="let i of userReports">
+                        <mat-card-header>
+                            <div mat-card-avatar><mat-icon>account_circle</mat-icon></div>
+                            <mat-card-title>{{i.username}}</mat-card-title>
+                            <mat-card-subtitle>User</mat-card-subtitle>
+                        </mat-card-header>
+                        <mat-card-content>
+                            <mat-card-tittle><h2>🌱{{i.greenPointName}}</h2></mat-card-tittle>
+                            <br>
+                        </mat-card-content>
+                        <mat-card-content>
+                            <p style="font-weight: bolder;">{{i.reason}}</p>
+                            <p style="align-items: center;">{{i.description}}</p>
+                        </mat-card-content>
+                    </mat-card>
                 </div>
             </div>
         </tab>
     </tabset>
 </div>
 
-<!-- Modal -->
-
-<ng-template #template>
-    <div class="modal-header">
-        <h4 class="modal-title pull-left">Modal</h4>
-        <button type="button" class="btn-close close pull-right" aria-label="Close" (click)="modalRef?.hide()">
-            <span aria-hidden="true" class="visually-hidden">&times;</span>
-        </button>
-    </div>
-    <div class="modal-body">
-        This is a modal.
-    </div>
-</ng-template>
+<!-- Spinner -->
+<ngx-spinner bdColor = "rgba(0,0,0,0.8)" size = "medium" color = "#fff" type = "ball-8bits" [fullScreen] = "true"><p style="color: white" > </p></ngx-spinner>

@@ -80,3 +80,12 @@ img {
   width: auto;
   height: 32px;
 }
+
+#report-button:disabled{
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+#reportButton{
+  background-color: var(--color-danger);
+}

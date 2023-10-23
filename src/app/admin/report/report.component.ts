@@ -4,8 +4,12 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { PlacesService } from 'src/app/shared/services/places.service';
 import { UserService } from 'src/app/shared/services/user.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { getDocs, query, where, collection, Firestore } from '@angular/fire/firestore';
 
-interface Reporte{
+interface Report{
+  username: string;
+  userEmail: string;
+  greenPointName: string;
   reason: string;
   description: string;
 }
@@ -18,8 +22,9 @@ interface Reporte{
 export class ReportComponent {
 
   mostrarForm = false;
-  reportes: Reporte[] = [];
-  userEmail: any;
+  userReports:Report[] = [];
+  userEmail:any;
+  reports:Report[] = [];
 
 
   modalRef?: BsModalRef;
@@ -27,24 +32,47 @@ export class ReportComponent {
   constructor(private modalService: BsModalService,
               private spinner: NgxSpinnerService,
               private place: PlacesService,
-              private userService: UserService) {
+              private userService: UserService,
+              private firestore: Firestore,) {
     this.userEmail = this.userService.userEmail;
+    const usersRef = collection(this.firestore, 'reports');
+    const userQuery = query(usersRef, where('userEmail', '==', this.userEmail));
+    getDocs(usersRef).then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        this.reports.push({
+          username: doc.data()['username'],
+          userEmail: doc.data()['userEmail'],
+          greenPointName: doc.data()['greenPointName'],
+          reason: doc.data()['reason'],
+          description: doc.data()['desc'],
+        })
+      })
+      this.spinner.hide();
+    })
+    getDocs(userQuery).then((querySnapshotUser) => {
+      querySnapshotUser.forEach((doc) => {
+        this.userReports.push({
+          username: doc.data()['username'],
+          userEmail: doc.data()['userEmail'],
+          greenPointName: doc.data()['greenPointName'],
+          reason: doc.data()['reason'],
+          description: doc.data()['desc'],
+        })
+      })
+      this.spinner.hide();
+    });
   }
 
   ngOnInit(): void {
+    if(this.userReports.length == 0 || this.reports.length == 0) {
+      this.spinner.show();
+    }
+    console.log(this.userReports);
+    console.log(this.reports);
   }
 
   mostrarFormulario() {
     this.mostrarForm = true;
-  }
-
-  agregarReporte(reporte: Reporte) {
-    this.reportes.push(reporte);
-    this.mostrarForm = false;
-  }
-
-  openModal(template: TemplateRef<any>) {
-    this.modalRef = this.modalService.show(template);
   }
 
 }
